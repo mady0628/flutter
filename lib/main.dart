@@ -1,133 +1,168 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:temp_project/calendar_box.dart';
-import 'package:temp_project/calendar_task.dart';
+import 'package:temp_project/detail_box.dart';
+import 'package:temp_project/line_need.dart';
+
 void main(){
   runApp(const MainApp());
 }
-@override
-class MainApp extends StatefulWidget{
-  const  MainApp({super.key});
 
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  late int _count;
-  @override
-  void initState(){
-    super.initState();
-    _count=Random().nextInt(6);
-  }
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> events = [
-      {
-        "time": "07:00",
-        "session": "AM",
-        "content": "CTDL & GT",
-        "note": "Nguyễn Duy Phương",
-      },
-      {
-        "time": "09:00",
-        "session": "AM",
-        "content": "Lí thuyết thông tin",
-        "note": "Phạm Văn Sự",
-      },
-      {
-        "time": "13:00",
-        "session": "PM",
-        "content": "Tư tưởng HCM",
-        "note": "Phạm Thị Khánh",
-      },
-      {
-        "time": "15:00",
-        "session": "PM",
-        "content": "Toán rời rạc 2",
-        "note": "Nguyễn Tất Thắng",
-      },
-      {
-        "time": "15:00",
-        "session": "PM",
-        "content": "Toán rời rạc 2",
-        "note": "Nguyễn Tất Thắng",
-      },
-      {
-        "time": "15:00",
-        "session": "PM",
-        "content": "Toán rời rạc 2",
-        "note": "Nguyễn Tất Thắng",
-      },
-      {
-        "time": "15:00",
-        "session": "PM",
-        "content": "Toán rời rạc 2",
-        "note": "Nguyễn Tất Thắng",
-      },
-    ];
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          floatingActionButton: InkWell(
-            onTap:() => setState(() {
-              _count=Random().nextInt(6);
-            }),
-            child: Container(
-              color: Colors.red,
-              height: 50,
-              width: 50,
+          appBar: AppBar(
+            title: Text(
+              "Breakfast",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
+            centerTitle: true,
+            leading: Container(
+              margin: EdgeInsets.all(8.0),
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+                size: 24.0,
+                semanticLabel: 'Text to announce in accessibility modes',
+              ),
+            ),
+            actions: [
+              Container(
+                margin: EdgeInsets.all(8.0),
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Icon(
+                  Icons.share,
+                  color: Colors.black,
+                  size: 24.0,
+                  semanticLabel: 'Text to announce in accessibility modes',
+                ),
+              )
+            ],
           ),
-          body: Center(
+          body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CalendarBox(text1: "20", text2: "MON"),
-                          CalendarBox(text1: "21", text2: "TUE"),
-                          CalendarBox(text1: "22", text2: "WED"),
-                          CalendarBox(text1: "23", text2: "THU"),
-                          CalendarBox(text1: "24", text2: "FRI"),
-                          CalendarBox(text1: "25", text2: "SAT"),
-                          CalendarBox(text1: "26", text2: "SUN")
+                          Text(
+                            "Breakfast",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 40,
+                              //fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "Today",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              //fontWeight: FontWeight.bold,
+                            ),
+                          )
                         ],
                       ),
-                    ),
-                  const SizedBox(
-                    height: 100,
+                      Icon(
+                        Icons.add,
+                        size: 50,
+                        color: Colors.black,
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: 500,
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return CalendarTask(
-                            time: events[_count]["time"],
-                            content: events[_count]["content"],
-                            note: events[_count]["note"],
-                            session: events[_count]["session"],);
-                      },
-                      itemCount: 1,
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          thickness: 2,
-                        );
-                      },
-                    ),
-                  )
+                  Divider(color: Colors.black),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            "452",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 70,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "kcal",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: 80,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color:Colors.lightGreen,
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Normal",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      LineNeed(namec: "Protein", now: 18, sum: 80),
+                      LineNeed(namec: "Fat", now: 20, sum: 60),
+                      LineNeed(namec: "Carbs", now: 19, sum: 200)
+                    ],
+                  ),
+                  DetailBox(name: "Egg", quantitative: "200", sumk: "436", pro: "12", fat: "6", carb: "9"),
+                  DetailBox(name: "Salad", quantitative: "300", sumk: "120", pro: "3", fat: "3", carb: "6"),
+                  DetailBox(name: "Chicken", quantitative: "500", sumk: "656", pro: "35", fat: "12", carb: "35"),
+                  DetailBox(name: "Pork", quantitative: "400", sumk: "766", pro: "32", fat: "23", carb: "65"),
+                  DetailBox(name: "Fish", quantitative: "300", sumk: "536", pro: "22", fat: "12", carb: "35"),
+                  DetailBox(name: "Shrimp", quantitative: "220", sumk: "234", pro: "23", fat: "1", carb: "54"),
+                  DetailBox(name: "Squid", quantitative: "100", sumk: "532", pro: "21", fat: "56", carb: "1"),
                 ],
               ),
             ),
-          )
+          ),
         ),
       )
     );
